@@ -16,7 +16,9 @@ async function handleCreateNewShortUrl(req, res){
         redirectURL: body.url
     })
 
-    return res.status(201).send({url: body.url, shortId: entry.shortId})
+    return res.status(201).render('home', {
+        id: shortID
+    })
 }
 
 
