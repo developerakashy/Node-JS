@@ -1,9 +1,11 @@
 const urlRoute = require('./routes/url')
 const staticRoute = require('./routes/static')
+const cookieParser = require('cookie-parser')
 const userRoute = require('./routes/user')
 const express = require('express')
 const connectMongoDB = require('./connection')
 const path = require('path')
+const { restrictToLoggedInUserOnly } = require('./middlewares/auth')
 
 const PORT = 8000
 const app = express()
@@ -20,7 +22,9 @@ connectMongoDB('mongodb://localhost:27017/short-url')
 //middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('/url', urlRoute)
+app.use(cookieParser())
+
+app.use('/url', restrictToLoggedInUserOnly, urlRoute)
 app.use('/user', userRoute)
 app.use('/', staticRoute)
 
