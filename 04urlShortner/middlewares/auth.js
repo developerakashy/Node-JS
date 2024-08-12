@@ -14,6 +14,18 @@ async function restrictToLoggedInUserOnly(req, res, next){
     next()
 }
 
+async function checkAuth(req, res, next){
+    const cookieId = req.cookies?.uid
+
+    const user = getUser(cookieId)
+
+    console.log("nrfjn", user)
+    req.user = user
+
+    next()
+}
+
 module.exports = {
-    restrictToLoggedInUserOnly
+    restrictToLoggedInUserOnly,
+    checkAuth
 }
