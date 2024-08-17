@@ -11,10 +11,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Server Started</h1>
+
+    <h1>Server Started - (<%= user.role %>)</h1>
     <% if (locals.id) { %>
         <h2>Generated Url: https://localhost:8000/url/<%= id %></h2>
     <% } %>
+
+
 
 
     <form method="post" action="/url">

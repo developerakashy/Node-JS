@@ -14,7 +14,7 @@ async function handleCreateNewShortUrl(req, res){
     const entry = await URL.create({
         shortId: shortID,
         redirectURL: body.url,
-        createdBy: req.user._id
+        createdBy: req.user.id
     })
 
     return res.status(201).redirect('/')

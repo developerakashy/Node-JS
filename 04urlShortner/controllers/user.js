@@ -12,12 +12,12 @@ async function handleUserSignUp(req, res){
 
 async function handleUserLogin(req, res){
     const { email, password } = req.body
-    const user = await User.findOne({ email: email, password: password })
+    const user = await User.findOne({ email, password })
     if(!user) return res.redirect('/login')
-    
-    const sessionId = uuidv4()
-    setUser(sessionId, user)
-    res.cookie("uid", sessionId)
+
+    const token = setUser(user)
+
+    res.cookie("token",token)
     return res.redirect('/')
 }
 
