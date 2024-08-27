@@ -1,15 +1,17 @@
 import http from 'http'
 import express from 'express'
+import dotenv from 'dotenv'
 import { Server } from 'socket.io'
+
+dotenv.config()
 
 const app = express()
 const server = http.createServer(app)
-const PORT = 8001
+const PORT = process.env.PORT
 
 const io = new Server(server)
 
 io.on('connection', (socket) => {
-    console.log("User connected on " + socket.id)
 
     socket.on('user-message', (message) => {
         io.emit('message', message)
